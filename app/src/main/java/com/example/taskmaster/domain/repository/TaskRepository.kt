@@ -3,12 +3,12 @@ package com.example.taskmaster.domain.repository
 import com.example.taskmaster.domain.model.Task
 
 interface TaskRepository {
+    suspend fun getTasks(): List<Task>
 
-    suspend fun saveMedicine(task: Task)
+    suspend fun saveTask(task: Task)
 
-    suspend fun getMedicine(): List<Task>
+    suspend fun updateTask(task: Task)
 
-    suspend fun updateMedicine(task: Task)
+    suspend fun deleteTask(task: Task)
 
-    suspend fun deleteMedicine(task: Task)
 }

@@ -12,7 +12,8 @@ class App : Application() {
             androidContext(this@App)
             modules(
                 listOf(
-
+                    appModule,
+                    domainModule
                 )
             )
         }

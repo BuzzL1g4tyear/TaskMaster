@@ -6,7 +6,7 @@ import com.example.taskmaster.data.entity.TaskEntity
 @Dao
 interface TaskDAO {
 
-    @Query("SELECT * FROM MedicineEntity")
+    @Query("SELECT * FROM TaskEntity")
     suspend fun getAll(): List<TaskEntity>
 
     @Insert

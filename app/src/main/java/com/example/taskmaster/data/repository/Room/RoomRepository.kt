@@ -7,19 +7,19 @@ import com.example.taskmaster.domain.repository.TaskRepository
 
 class RoomRepository(private val storage: TaskStorage) : TaskRepository {
 
-    override suspend fun getMedicine(): List<Task> {
+    override suspend fun getTasks(): List<Task> {
         return toDomain(storage.get())
     }
 
-    override suspend fun saveMedicine(task: Task) {
+    override suspend fun saveTask(task: Task) {
         storage.insert(toStorage(task))
     }
 
-    override suspend fun updateMedicine(task: Task) {
+    override suspend fun updateTask(task: Task) {
         storage.update(toStorage(task = task))
     }
 
-    override suspend fun deleteMedicine(task: Task) {
+    override suspend fun deleteTask(task: Task) {
         storage.delete(toStorage(task = task))
     }
 
