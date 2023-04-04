@@ -1,4 +1,4 @@
-package com.example.taskmaster.ui.theme
+package com.example.taskmaster.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
