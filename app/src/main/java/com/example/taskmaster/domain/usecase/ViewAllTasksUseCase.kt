@@ -5,7 +5,7 @@ import com.example.taskmaster.domain.repository.TaskRepository
 
 class ViewAllTasksUseCase(private val repository: TaskRepository) {
 
-    suspend fun execute(task: Task): List<Task> {
+    suspend fun execute(): List<Task> {
         return repository.getTasks()
     }
 

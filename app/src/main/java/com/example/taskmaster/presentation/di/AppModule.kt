@@ -1,16 +1,13 @@
 package com.example.taskmaster.presentation.di
 
-import com.example.taskmaster.data.repository.Room.RoomRepository
-import com.example.taskmaster.data.storage.room.RoomTaskStorage
+import com.example.taskmaster.presentation.screens.main.MainViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
 
-    single<RoomTaskStorage> {
-        RoomTaskStorage(context = get())
+    viewModel {
+        MainViewModel(viewAllTasksUseCase = get())
     }
 
-    single<RoomRepository> {
-        RoomRepository(storage = get())
-    }
 }
