@@ -12,19 +12,13 @@ class MainViewModel(
     private val viewAllTasksUseCase: ViewAllTasksUseCase
 ) : ViewModel() {
 
-    private val viewModelTasks = MutableLiveData<List<Task>>()
+    private val _tasks = MutableLiveData<List<Task>>()
     val tasks: LiveData<List<Task>>
-        get() = viewModelTasks
+        get() = _tasks
 
-    init {
-        getAllTasks()
-    }
-
-    private fun getAllTasks() {
+    fun getAllTasks() {
         viewModelScope.launch {
-            viewAllTasksUseCase.execute().let {
-                viewModelTasks.postValue(it)
-            }
+            _tasks.value = viewAllTasksUseCase.execute()
         }
     }
 }
