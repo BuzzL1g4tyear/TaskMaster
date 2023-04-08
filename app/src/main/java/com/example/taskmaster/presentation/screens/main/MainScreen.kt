@@ -1,6 +1,7 @@
 package com.example.taskmaster.presentation.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,8 +19,10 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import com.example.taskmaster.presentation.nav.Screens
+import com.example.taskmaster.presentation.nav.navigate
 import com.example.taskmaster.presentation.screens.main.MainViewModel
 import com.example.taskmaster.presentation.ui.composable.TaskCard
 import com.example.taskmaster.presentation.ui.theme.TaskMasterTheme
@@ -45,8 +48,7 @@ fun MainScreen(navController: NavController) {
                 navController.navigate(Screens.AddTaskScreen.route)
             }) {
                 Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Add"
+                    imageVector = Icons.Default.Add, contentDescription = "Add"
                 )
             }
 
@@ -60,12 +62,16 @@ fun MainScreen(navController: NavController) {
 
                 LazyColumn {
                     items(items = tasks) { task ->
-                        TaskCard(
-                            task = task,
+                        TaskCard(task = task,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(vertical = 12.dp, horizontal = 24.dp)
-                        )
+                                .clickable {
+                                    navController.navigate(
+                                        route = Screens.TaskInfoScreen.route,
+                                        bundleOf("TASK_KEY" to task),
+                                    )
+                                })
                     }
                 }
             }
