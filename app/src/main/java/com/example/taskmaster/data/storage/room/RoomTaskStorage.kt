@@ -17,15 +17,15 @@ class RoomTaskStorage(context: Context): TaskStorage {
         return taskDAO.getAll()
     }
 
-    override suspend fun insert(medicine: TaskEntity) {
-        taskDAO.insert(task = medicine)
+    override suspend fun insert(task: TaskEntity) {
+        taskDAO.insert(task = task)
     }
 
-    override suspend fun update(medicine: TaskEntity) {
-        taskDAO.update(task = medicine)
+    override suspend fun update(task: TaskEntity) {
+        taskDAO.update(task = task)
     }
 
-    override suspend fun delete(medicine: TaskEntity) {
-        taskDAO.delete(task = medicine)
+    override suspend fun delete(task: TaskEntity) {
+        taskDAO.delete(task = task)
     }
 }

@@ -25,7 +25,10 @@ class RoomRepository(private val storage: TaskStorage) : TaskRepository {
 
     private fun toStorage(task: Task): TaskEntity {
         return TaskEntity(
-            title = task.title, description = task.description, priority = task.priority
+            id = task.id,
+            title = task.title,
+            description = task.description,
+            priority = task.priority
         )
     }
 
@@ -35,7 +38,10 @@ class RoomRepository(private val storage: TaskStorage) : TaskRepository {
 
         for (task in tasksList) {
             val t = Task(
-                title = task.title, description = task.description, priority = task.priority
+                id = task.id,
+                title = task.title,
+                description = task.description,
+                priority = task.priority
             )
             list.add(t)
         }
