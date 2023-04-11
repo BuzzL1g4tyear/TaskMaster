@@ -2,10 +2,7 @@ package com.example.taskmaster.presentation.screens.info
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.MoreVert
@@ -42,8 +39,8 @@ fun InfoScreen(task: Task) {
                 infoViewModel.editTask(
                     task = Task(
                         id = infoViewModel.id,
-                        title = infoViewModel.title,
-                        description = infoViewModel.description,
+                        title = infoViewModel.title.trim(),
+                        description = infoViewModel.description.trim(),
                         priority = infoViewModel.priority
                     )
                 )
@@ -56,38 +53,46 @@ fun InfoScreen(task: Task) {
     }) {
         Column(modifier = Modifier.fillMaxSize()) {
             Text(
-                text = "Info ${infoViewModel.title}",
+                text = "Info ${infoViewModel.title.trim()}",
                 fontSize = 36.sp,
                 modifier = Modifier.padding(all = 24.dp)
             )
-            OutlinedTextField(value = infoViewModel.title, onValueChange = { title ->
-                infoViewModel.setTaskTitle(title)
-            }, label = { Text("Task name") })
+            Column(
+                modifier = Modifier
+                    .padding(start = 24.dp, end = 24.dp)
+                    .fillMaxSize()
+            ) {
+                OutlinedTextField(value = infoViewModel.title, onValueChange = { title ->
+                    infoViewModel.setTaskTitle(title)
+                }, label = { Text("Task name") }, singleLine = true, )
 
-            OutlinedTextField(value = infoViewModel.description, onValueChange = { description ->
-                infoViewModel.setTaskDescription(description)
-            }, label = { Text("Task description") })
+                OutlinedTextField(value = infoViewModel.description,
+                    onValueChange = { description ->
+                        infoViewModel.setTaskDescription(description)
+                    },
+                    label = { Text("Task description") })
 
-            Box {
-                OutlinedTextField(value = chooseList[infoViewModel.priority], onValueChange = {
-                    selectedOption = it
-                }, label = { Text("Task priority") }, trailingIcon = {
-                    Icon(Icons.Default.MoreVert,
-                        contentDescription = "Show menu",
-                        Modifier.clickable {
-                            expanded = !expanded
-                        })
-                }, readOnly = true
-                )
-                DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-                    chooseList.forEachIndexed { index, str ->
-                        DropdownMenuItem(onClick = {
-                            infoViewModel.setTaskPriority(index)
-                            selectedOption = chooseList[task.priority]
-                            expanded = false
-                        }, text = {
-                            Text(text = str)
-                        })
+                Box {
+                    OutlinedTextField(value = chooseList[infoViewModel.priority], onValueChange = {
+                        selectedOption = it
+                    }, label = { Text("Task priority") }, trailingIcon = {
+                        Icon(Icons.Default.MoreVert,
+                            contentDescription = "Show menu",
+                            Modifier.clickable {
+                                expanded = !expanded
+                            })
+                    }, readOnly = true
+                    )
+                    DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+                        chooseList.forEachIndexed { index, str ->
+                            DropdownMenuItem(onClick = {
+                                infoViewModel.setTaskPriority(index)
+                                selectedOption = chooseList[task.priority]
+                                expanded = false
+                            }, text = {
+                                Text(text = str)
+                            })
+                        }
                     }
                 }
             }
