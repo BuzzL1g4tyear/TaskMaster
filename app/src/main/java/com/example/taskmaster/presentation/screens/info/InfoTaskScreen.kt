@@ -31,31 +31,32 @@ fun InfoScreen(task: Task) {
     var selectedOption by remember { mutableStateOf("") }
     val chooseList = listOf("Doesn't matter", "Usually", "Important")
 
+    infoViewModel.id = task.id
     infoViewModel.title = task.title
     infoViewModel.description = task.description
     infoViewModel.priority = task.priority
 
-    Scaffold(
-        floatingActionButton = {
-            FloatingActionButton(onClick = {
-                CoroutineScope(Dispatchers.IO).launch {
-                    infoViewModel.editTask(
-                        task = Task(
-                            title = infoViewModel.title,
-                            description = infoViewModel.description,
-                            priority = infoViewModel.priority
-                        )
+    Scaffold(floatingActionButton = {
+        FloatingActionButton(onClick = {
+            CoroutineScope(Dispatchers.IO).launch {
+                infoViewModel.editTask(
+                    task = Task(
+                        id = infoViewModel.id,
+                        title = infoViewModel.title,
+                        description = infoViewModel.description,
+                        priority = infoViewModel.priority
                     )
-                }
-            }) {
-                Icon(
-                    imageVector = Icons.Default.Edit, contentDescription = "Edit"
                 )
             }
         }) {
+            Icon(
+                imageVector = Icons.Default.Edit, contentDescription = "Edit"
+            )
+        }
+    }) {
         Column(modifier = Modifier.fillMaxSize()) {
             Text(
-                text = "Info ${task.title}",
+                text = "Info ${infoViewModel.title}",
                 fontSize = 36.sp,
                 modifier = Modifier.padding(all = 24.dp)
             )

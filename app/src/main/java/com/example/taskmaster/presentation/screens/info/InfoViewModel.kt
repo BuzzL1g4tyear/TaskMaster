@@ -9,9 +9,10 @@ import com.example.taskmaster.domain.usecase.DeleteTaskUseCase
 import com.example.taskmaster.domain.usecase.EditTaskUseCase
 
 class InfoViewModel(
-    private val editTaskUseCase: EditTaskUseCase,
-    private val deleteTaskUseCase: DeleteTaskUseCase
+    private val editTaskUseCase: EditTaskUseCase, private val deleteTaskUseCase: DeleteTaskUseCase
 ) : ViewModel() {
+    var id by mutableStateOf(0)
+
     var title by mutableStateOf("")
 
     fun setTaskTitle(input: String) {
